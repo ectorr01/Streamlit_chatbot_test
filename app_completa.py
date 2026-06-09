@@ -1,3 +1,4 @@
+
 import streamlit as st
 import anthropic
 import chromadb
@@ -14,9 +15,9 @@ if "ANTHROPIC_API_KEY" in st.secrets:
 client = anthropic.Anthropic()
 
 SYSTEM = """
-Sei l\'assistente virtuale di WiData Srl, startup IoT e smart cities di Sassari.
+Sei l'assistente virtuale di WiData Srl, startup IoT e smart cities di Sassari.
 Rispondi SOLO basandoti sui documenti forniti nel contesto.
-Se non hai informazioni sufficienti, dì chiaramente: \'Non ho questa informazione.\'
+Se non hai informazioni sufficienti, dì chiaramente: 'Non ho questa informazione.'
 Non inventare mai dati tecnici, prezzi o specifiche.
 """
 
@@ -99,11 +100,11 @@ if prompt := st.chat_input("Scrivi un messaggio..."):
 
     # RAG
     chunks = cerca_rag(prompt, st.session_state.collection, n_chunks)
-    contesto = "\\n\\n---\\n\\n".join(chunks) if chunks else ""
+    contesto = "\n\n---\n\n".join(chunks) if chunks else ""
 
     messaggio_con_rag = prompt
     if contesto:
-        messaggio_con_rag = f"Contesto dai documenti:\\n\\n{contesto}\\n\\n---\\n\\nDomanda: {prompt}"
+        messaggio_con_rag = f"Contesto dai documenti:\n\n{contesto}\n\n---\n\nDomanda: {prompt}"
 
     st.session_state.messages.append({"role": "user", "content": prompt})
     history = [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages[:-1]]
