@@ -70,13 +70,26 @@ streamlit run app.py
 
 ## 📍 Posizionamento Crawl-Walk-Run
 
-<!-- TODO: dove si posiziona il chatbot e perché -->
-Il chatbot si posiziona in zona **WALK** perché...
+Il chatbot si posiziona in zona **WALK** perché supera la semplice risposta generica (CRAWL) e introduce un meccanismo di recupero contestuale reale tramite RAG: il modello non inventa, ma risponde basandosi esclusivamente sui documenti aziendali caricati.
+L'app è già deployabile, configurabile e dotata di guardrail di sicurezza, ma non raggiunge ancora il livello RUN perché manca di persistenza dei dati, autenticazione utente, integrazione con sistemi esterni e ottimizzazione degli embedding.
+
+```
+CRAWL 🐛          WALK 🚶 ← siamo qui          RUN 🏃
+─────────────────────────────────────────────────────
+Chatbot generico  RAG su PDF + guardrail       Embedding ottimizzati
+Solo LLM base     Streaming + session state    Persistenza + auth
+Nessun contesto   Deploy su Cloud              Integrazione sistemi
+```
 
 ## 🔮 Passo successivo
 
-<!-- TODO: cosa fareste per portarlo a RUN -->
-Per avanzare verso RUN implementeremmo...
+Per avanzare verso **RUN** implementeremmo:
+
+- 🧠 **Embedding reali**: sostituire la ricerca testuale di ChromaDB con embedding vettoriali veri (es. `sentence-transformers`) per una retrieval semantica più precisa
+- 💾 **Persistenza**: salvare le collection ChromaDB su disco o su database cloud per non perdere l'indicizzazione al riavvio dell'app
+- 🔐 **Autenticazione**: aggiungere un sistema di login per limitare l'accesso all'app solo agli utenti autorizzati di WiData
+- 📂 **Multi-documento**: supportare più PDF contemporaneamente, con selezione del documento da interrogare
+- 📊 **Logging e analytics**: tracciare le domande più frequenti per migliorare la knowledge base aziendale
 
 ---
 *Progetto realizzato durante il corso AI Engineering Fundamentals*
