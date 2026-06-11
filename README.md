@@ -1,7 +1,10 @@
 
 # 🤖 Chatbot WiData
 
-
+<!-- Badge dello stack tecnologico -->
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Anthropic](https://img.shields.io/badge/Anthropic-Claude-orange)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.40-red)
 
 
 
