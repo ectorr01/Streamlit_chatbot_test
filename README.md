@@ -1,39 +1,54 @@
 
 # 🤖 Chatbot WiData
 
-<!-- Badge dello stack tecnologico -->
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![Anthropic](https://img.shields.io/badge/Anthropic-Claude-orange)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.35-red)
+
+
+
 
 ## 📋 Descrizione
 
-<!-- TODO: 2-3 frasi che spiegano cosa fa il chatbot -->
-...
+Chatbot RAG (Retrieval-Augmented Generation) sviluppato per WiData Srl, startup IoT e smart cities di Sassari.
+L'app permette di caricare un documento PDF aziendale, indicizzarlo automaticamente in chunk e interrogarlo in linguaggio naturale tramite Claude Haiku di Anthropic.
+Il chatbot risponde **solo** basandosi sui contenuti del documento caricato, senza inventare dati tecnici, prezzi o specifiche.
 
 ## 🚀 Demo
 
-<!-- TODO: link a Streamlit Cloud quando deployato -->
-**Live**: [chatbot-widata.streamlit.app](https://...)
+**Live**: [chatbot-widata.streamlit.app](https://chatbot-widata.streamlit.app)
 
 ## ✨ Funzionalità
 
-<!-- TODO: lista delle features principali -->
-- ...
+- 📄 **Upload PDF**: carica qualsiasi documento aziendale direttamente dalla sidebar
+- 🔍 **RAG automatico**: il testo viene suddiviso in chunk e indicizzato in un database vettoriale
+- 💬 **Chat multi-turn**: conversazione con memoria della cronologia dei messaggi
+- 🎛 **Parametri configurabili**: temperature e numero di chunk RAG regolabili dalla sidebar
+- 🛡 **Guardrail di input**: blocca messaggi troppo lunghi o tentativi di prompt injection
+- 🔑 **Gestione API key**: compatibile sia con ambiente locale che con Streamlit Cloud
+- 📊 **Contatore messaggi**: visualizzazione del numero di messaggi nella sessione corrente
 
 ## 🛠 Stack tecnologico
 
-<!-- TODO: tecnologie usate con descrizione breve -->
 | Tecnologia | Uso |
 |------------|-----|
-| Claude Haiku | ... |
-| ChromaDB | ... |
-| Streamlit | ... |
+| **Claude Haiku** | Modello LLM di Anthropic usato per generare le risposte in streaming |
+| **ChromaDB** | Database vettoriale in-memory per la ricerca semantica sui chunk del PDF |
+| **Streamlit** | Framework per l'interfaccia web interattiva e la gestione della sessione utente |
+| **pypdf** | Estrazione del testo grezzo dalle pagine del PDF caricato |
+| **Python 3.11** | Linguaggio base del progetto |
 
 ## 📐 Architettura
 
-<!-- TODO: descrizione del flusso RAG + tool in 3-4 righe -->
-...
+Il flusso RAG si articola in quattro fasi principali:
+
+1. **Indicizzazione**: il PDF caricato viene letto con `pypdf`, il testo estratto viene suddiviso in chunk da 400 caratteri con overlap di 50, e ogni chunk viene salvato in una collection ChromaDB.
+2. **Retrieval**: alla ricezione di un messaggio utente, ChromaDB cerca i chunk semanticamente più rilevanti tramite query testuale.
+3. **Augmentation**: i chunk recuperati vengono iniettati nel prompt come contesto, insieme alla domanda originale dell'utente.
+4. **Generation**: Claude Haiku riceve il contesto arricchito e genera una risposta in streaming, visibile in tempo reale nell'interfaccia.
+
+```
+PDF → chunking → ChromaDB
+                    ↓
+Domanda utente → retrieval → prompt arricchito → Claude Haiku → risposta
+```
 
 ## ⚙️ Esecuzione in locale
 
