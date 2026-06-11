@@ -15,6 +15,10 @@ Il chatbot risponde **solo** basandosi sui contenuti del documento caricato, sen
 
 **Live**: [chatbotwidata.streamlit.app](https://chatbotwidata.streamlit.app/)
 
+## 🎥 GIF dimostrativa
+
+<img src="./assets/chatbot01.gif" alt="Demo del chatbot WiData" width="1200">
+
 ## ✨ Funzionalità
 
 - 📄 **Upload PDF**: carica qualsiasi documento aziendale direttamente dalla sidebar
