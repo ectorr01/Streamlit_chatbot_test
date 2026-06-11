@@ -14,7 +14,7 @@ if "messages" not in st.session_state:
 if "collection" not in st.session_state:
     st.session_state.collection = None
 
-# ── API Key: prova st.secrets (Streamlit Cloud), poi os.environ (locale) ──────
+# ── API Key: prova st.secrets, poi os.environ ──────
 try:
     api_key = st.secrets["ANTHROPIC_API_KEY"]
 except (KeyError, FileNotFoundError):
