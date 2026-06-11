@@ -40,7 +40,7 @@ Il chatbot risponde **solo** basandosi sui contenuti del documento caricato, sen
 | **ChromaDB** | Database vettoriale in-memory per la ricerca semantica sui chunk del PDF |
 | **Streamlit** | Framework per l'interfaccia web interattiva e la gestione della sessione utente |
 | **pypdf** | Estrazione del testo grezzo dalle pagine del PDF caricato |
-| **Python 3.11** | Linguaggio base del progetto |
+| **Python 3.12** | Linguaggio base del progetto |
 
 ## 📐 Architettura
 
@@ -61,8 +61,8 @@ Domanda utente → retrieval → prompt arricchito → Claude Haiku → risposta
 
 ```bash
 # Clone
-git clone https://github.com/TUO_USERNAME/AI-engineering-fundamentals
-cd AI-engineering-fundamentals
+git clone https://github.com/ectorr01/Streamlit_chatbot_test
+cd Streamlit_chatbot_test
 
 # Installa dipendenze
 pip install -r requirements.txt
