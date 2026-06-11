@@ -1,45 +1,68 @@
-# Chatbot WiData
 
-Semplice chatbot RAG realizzato con Streamlit, Anthropic, ChromaDB e PDF upload.
-L'app permette di caricare un PDF, indicizzarlo in chunk e fare domande usando il contenuto del documento come contesto.[1][2]
+# 🤖 Chatbot WiData
 
-## Avvio locale in VS Code
+<!-- Badge dello stack tecnologico -->
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Anthropic](https://img.shields.io/badge/Anthropic-Claude-orange)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.35-red)
 
-1. Apri il progetto in VS Code.
-2. Crea l'ambiente virtuale e installa le dipendenze del progetto.
-3. Crea la cartella `.streamlit` nella root del progetto, cioè nella stessa cartella da cui esegui `streamlit run app.py`.[1][2]
-4. Crea il file `.streamlit/secrets.toml` e inserisci la chiave:
+## 📋 Descrizione
 
-```toml
-ANTHROPIC_API_KEY = "la_tua_key"
-```
+<!-- TODO: 2-3 frasi che spiegano cosa fa il chatbot -->
+...
 
-5. Avvia l'app con:
+## 🚀 Demo
+
+<!-- TODO: link a Streamlit Cloud quando deployato -->
+**Live**: [chatbot-widata.streamlit.app](https://...)
+
+## ✨ Funzionalità
+
+<!-- TODO: lista delle features principali -->
+- ...
+
+## 🛠 Stack tecnologico
+
+<!-- TODO: tecnologie usate con descrizione breve -->
+| Tecnologia | Uso |
+|------------|-----|
+| Claude Haiku | ... |
+| ChromaDB | ... |
+| Streamlit | ... |
+
+## 📐 Architettura
+
+<!-- TODO: descrizione del flusso RAG + tool in 3-4 righe -->
+...
+
+## ⚙️ Esecuzione in locale
 
 ```bash
+# Clone
+git clone https://github.com/TUO_USERNAME/AI-engineering-fundamentals
+cd AI-engineering-fundamentals
+
+# Installa dipendenze
+pip install -r requirements.txt
+
+# Configura API key
+mkdir .streamlit
+echo 'ANTHROPIC_API_KEY = "sk-ant-..."' > .streamlit/secrets.toml
+
+# Avvia
 streamlit run app.py
 ```
 
-Streamlit legge i secret dal file `.streamlit/secrets.toml` nella working directory; se esiste anche un file globale, quello del progetto ha precedenza.[1]
+## 📍 Posizionamento Crawl-Walk-Run
 
-## Secret su Streamlit Community Cloud
+<!-- TODO: dove si posiziona il chatbot e perché -->
+Il chatbot si posiziona in zona **WALK** perché...
 
-Quando pubblichi l'app su Streamlit Community Cloud, non devi caricare `secrets.toml` nel repository GitHub. I secret vanno inseriti nel pannello **Secrets** dell'app nelle impostazioni di deploy.[3][4]
+## 🔮 Passo successivo
 
-Nel pannello Secrets inserisci ad esempio:
+<!-- TODO: cosa fareste per portarlo a RUN -->
+Per avanzare verso RUN implementeremmo...
 
-```toml
-ANTHROPIC_API_KEY = "la_tua_key"
-```
-
-In questo modo la chiave resta fuori dal codice e l'app può leggerla con `st.secrets` durante il runtime.[5][3]
-
-## Sicurezza
-
-Aggiungi questo file al `.gitignore` per evitare di pubblicare accidentalmente la chiave:
-
-```gitignore
-.streamlit/secrets.toml
-```
-
-Se il file è già stato tracciato da Git, va rimosso dall'indice con `git rm --cached .streamlit/secrets.toml` prima del push.[5]
+---
+*Progetto realizzato durante il corso AI Engineering Fundamentals*
+*ITS Novitas 4.0 — Sassari, 2026*

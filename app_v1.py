@@ -1,4 +1,3 @@
-
 import streamlit as st
 import anthropic
 import chromadb
@@ -9,10 +8,28 @@ from pypdf import PdfReader
 
 st.set_page_config(page_title="Chatbot WiData", page_icon="🤖", layout="wide")
 
-# API Key
-if "ANTHROPIC_API_KEY" in st.secrets:
-    os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-client = anthropic.Anthropic()
+# Inizializzazione session state
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+if "collection" not in st.session_state:
+    st.session_state.collection = None
+
+# ── API Key: prova st.secrets (Streamlit Cloud), poi os.environ (locale) ──────
+try:
+    api_key = st.secrets["ANTHROPIC_API_KEY"]
+except (KeyError, FileNotFoundError):
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+
+if not api_key:
+    st.error(
+        "🔑 **ANTHROPIC_API_KEY non trovata.**\n\n"
+        "- **Locale**: aggiungila in `.streamlit/secrets.toml` oppure settala come variabile d'ambiente.\n"
+        "- **Streamlit Cloud**: inseriscila nel pannello *Secrets* nelle impostazioni dell'app."
+    )
+    st.stop()
+
+client = anthropic.Anthropic(api_key=api_key)
+# ─────────────────────────────────────────────────────────────────────────────
 
 SYSTEM = """
 Sei l'assistente virtuale di WiData Srl, startup IoT e smart cities di Sassari.
@@ -29,7 +46,7 @@ def chunka_testo(testo, chunk_size=400, overlap=50):
     chunks = []
     start = 0
     while start < len(testo):
-        chunk = testo[start:start+chunk_size]
+        chunk = testo[start:start + chunk_size]
         if chunk.strip():
             chunks.append(chunk)
         start += chunk_size - overlap
@@ -41,8 +58,10 @@ def indicizza_pdf(file_bytes, collection_name="widata"):
     testo = " ".join(p.extract_text() or "" for p in reader.pages)
     chunks = chunka_testo(testo)
     chroma = get_chroma_client()
-    try: chroma.delete_collection(collection_name)
-    except: pass
+    try:
+        chroma.delete_collection(collection_name)
+    except:
+        pass
     coll = chroma.create_collection(collection_name)
     coll.add(documents=chunks, ids=[str(i) for i in range(len(chunks))])
     return coll, len(chunks)
@@ -50,7 +69,10 @@ def indicizza_pdf(file_bytes, collection_name="widata"):
 def cerca_rag(domanda, collection, n=3):
     if collection is None:
         return []
-    risultati = collection.query(query_texts=[domanda], n_results=min(n, collection.count()))
+    risultati = collection.query(
+        query_texts=[domanda],
+        n_results=min(n, collection.count())
+    )
     return risultati["documents"][0]
 
 def guardrail_input(testo):
@@ -66,24 +88,27 @@ with st.sidebar:
     st.title("⚙️ Impostazioni")
     temperature = st.slider("Temperature", 0.0, 1.0, 0.7, 0.1)
     n_chunks = st.slider("Chunk RAG", 1, 5, 3)
+
     st.divider()
+
     uploaded = st.file_uploader("📄 Carica PDF", type="pdf")
     if uploaded:
         with st.spinner("Indicizzando..."):
             coll, n = indicizza_pdf(uploaded.read())
             st.session_state.collection = coll
             st.success(f"✅ {n} chunk indicizzati")
+
     st.divider()
+
     if st.button("🗑️ Nuova chat"):
         st.session_state.messages = []
         st.rerun()
 
+    st.text_input("Nome chatbot", "Chatbot WiData")
+    st.metric("Messaggi", len(st.session_state.messages))
+
 # ── Main ─────────────────────────────────────────────────────────
 st.title("🤖 Chatbot WiData")
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-if "collection" not in st.session_state:
-    st.session_state.collection = None
 
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
@@ -113,6 +138,7 @@ if prompt := st.chat_input("Scrivi un messaggio..."):
     with st.chat_message("assistant"):
         risposta_completa = ""
         placeholder = st.empty()
+
         with client.messages.stream(
             model="claude-haiku-4-5-20251001",
             max_tokens=800,
@@ -123,6 +149,7 @@ if prompt := st.chat_input("Scrivi un messaggio..."):
             for text in stream.text_stream:
                 risposta_completa += text
                 placeholder.markdown(risposta_completa + "▌")
+
         placeholder.markdown(risposta_completa)
 
         if chunks:
