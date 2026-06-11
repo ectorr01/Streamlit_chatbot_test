@@ -13,7 +13,7 @@ Il chatbot risponde **solo** basandosi sui contenuti del documento caricato, sen
 
 ## 🚀 Demo
 
-**Live**: [chatbot-widata.streamlit.app](https://chatbot-widata.streamlit.app)
+**Live**: [chatbotwidata.streamlit.app](https://chatbotwidata.streamlit.app/)
 
 ## ✨ Funzionalità
 
