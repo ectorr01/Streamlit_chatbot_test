@@ -187,10 +187,6 @@ https://TUONOME-chatbot-widata-HASH.streamlit.app
 
 ## 📊 Presentazione
 
-[![Anteprima Slide](https://img.shields.io/badge/📄-Visualizza%20Slide-blue?style=for-the-badge&logo=google)](https://docs.google.com/presentation/d/1oVxLFj8gFNGX6vmVCsImxrVfQziAv69cd_wzTyX6nKY/edit?usp=drive_link)
-
-## 📊 Presentazione
-
 [![📄 Download PDF](https://img.shields.io/badge/📥-Download%20PDF-red?style=for-the-badge&logo=adobe)](assets/WiData_Chatbot_Deployment.pdf)
 
 
