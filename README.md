@@ -98,6 +98,89 @@ Per avanzare verso **RUN** implementeremmo:
 - 📂 **Multi-documento**: supportare più PDF contemporaneamente, con selezione del documento da interrogare
 - 📊 **Logging e analytics**: tracciare le domande più frequenti per migliorare la knowledge base aziendale
 
+
+## 🚢 Guida al Deploy su Streamlit Cloud
+
+### Prerequisiti
+
+Prima di iniziare, assicurati di avere:
+
+- [ ] Account GitHub con repository pubblica
+- [ ] `app.py` nella root o in una sottocartella del repo
+- [ ] `requirements.txt` nella root del repository
+- [ ] Account su [share.streamlit.io](https://share.streamlit.io) (gratuito)
+
+***
+
+### Passo 1 — Push su GitHub
+
+Aggiungi i file necessari e fai il push:
+
+```bash
+git add app.py requirements.txt .gitignore README.md
+git commit -m "Deploy chatbot WiData"
+git push
+```
+
+> ⚠️ Assicurati che `.streamlit/secrets.toml` sia nel `.gitignore` e **non** venga pushato.
+
+***
+
+### Passo 2 — Crea una nuova app su Streamlit Cloud
+
+1. Vai su [share.streamlit.io](https://share.streamlit.io)
+2. Clicca **New app**
+3. Compila i campi:
+
+| Campo | Valore |
+|-------|--------|
+| Repository | `tuo-username/tuo-repo` |
+| Branch | `main` |
+| Main file path | `tuo-percorso/app.py` |
+
+***
+
+### Passo 3 — Aggiungi il Secret ⚠️
+
+> **Fallo PRIMA di cliccare Deploy**, altrimenti l'app si avvia senza la chiave e va in errore.
+
+1. Clicca su **Advanced settings**
+2. Vai nella sezione **Secrets**
+3. Inserisci:
+
+```toml
+ANTHROPIC_API_KEY = "sk-ant-..."
+```
+
+***
+
+### Passo 4 — Deploy
+
+Clicca **Deploy** e attendi **3–5 minuti** per la prima build (il tempo dipende dal peso delle dipendenze).
+
+***
+
+### Passo 5 — URL pubblico
+
+Una volta completato il deploy, l'app sarà disponibile all'indirizzo:
+
+```
+https://TUONOME-chatbot-widata-HASH.streamlit.app
+```
+
+Copia il link e incollalo nella sezione [🚀 Demo](#-demo) di questo README.
+
+***
+
+### ❌ Errori comuni
+
+| Errore | Causa | Soluzione |
+|--------|-------|-----------|
+| `ModuleNotFoundError` | `requirements.txt` incompleto | Aggiungi il modulo mancante e rifai il push |
+| `AuthenticationError` | Secret non configurato o errato | Vai in Settings → Secrets e verifica la chiave |
+| `File non trovato` | Path sbagliato nel campo *Main file path* | Controlla il percorso esatto di `app.py` nel repo |
+| Build molto lenta | Dipendenze pesanti (es. `sentence-transformers` ~800MB) | Normale al primo deploy, attendi |
+
 ---
 *Progetto realizzato durante il corso AI Engineering Fundamentals*
 *ITS Novitas 4.0 — Sassari, 2026*
