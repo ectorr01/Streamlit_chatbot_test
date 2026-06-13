@@ -168,8 +168,6 @@ Una volta completato il deploy, l'app sarà disponibile all'indirizzo:
 https://TUONOME-chatbot-widata-HASH.streamlit.app
 ```
 
-Copia il link e incollalo nella sezione [🚀 Demo](#-demo) di questo README.
-
 ***
 
 ### ❌ Errori comuni
