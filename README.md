@@ -98,6 +98,8 @@ Per avanzare verso **RUN** implementeremmo:
 - 📂 **Multi-documento**: supportare più PDF contemporaneamente, con selezione del documento da interrogare
 - 📊 **Logging e analytics**: tracciare le domande più frequenti per migliorare la knowledge base aziendale
 
+***
+
 
 ## 🚢 Guida al Deploy su Streamlit Cloud
 
@@ -178,6 +180,18 @@ https://TUONOME-chatbot-widata-HASH.streamlit.app
 | `AuthenticationError` | Secret non configurato o errato | Vai in Settings → Secrets e verifica la chiave |
 | `File non trovato` | Path sbagliato nel campo *Main file path* | Controlla il percorso esatto di `app.py` nel repo |
 | Build molto lenta | Dipendenze pesanti (es. `sentence-transformers` ~800MB) | Normale al primo deploy, attendi |
+
+
+
+***
+
+## 📊 Presentazione
+
+[![Anteprima Slide](https://img.shields.io/badge/📄-Visualizza%20Slide-blue?style=for-the-badge&logo=google)]((https://docs.google.com/presentation/d/1oVxLFj8gFNGX6vmVCsImxrVfQziAv69cd_wzTyX6nKY/edit?usp=drive_link))
+
+
+
+
 
 ---
 *Progetto realizzato durante il corso AI Engineering Fundamentals*
